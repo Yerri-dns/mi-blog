@@ -1,0 +1,49 @@
+---
+// src/pages/yerri.astro
+import Layout from "../layouts/Layout.astro";
+
+// Aquí solo pegaremos los links que copiaste de Cloudinary
+const links = {
+  portada: "https://res.cloudinary.com/dvdvy3emr/image/upload/v1774650380/portada_l9qlt4.jpg",
+  perfil: "https://res.cloudinary.com/dvdvy3emr/image/upload/v1774646718/perfil_ycdtd4.webp"
+};
+---
+
+<Layout title="Mr. Yerri | Perfil">
+  <div class="space-y-12 max-w-4xl mx-auto pb-20">
+    <div class="relative w-full px-0 sm:px-0">
+      
+      <div class="h-45 sm:h-60 w-full bg-neutral-300 dark:bg-neutral-700  rounded-[10px] flex items-center justify-center relative overflow-hidden shadow-2xl">
+        <img
+          src={links.portada}
+          alt="Portada"
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-grid-neutral-800 opacity-20"></div>
+      </div>
+
+      <div class="absolute -bottom-17.5 left-1/2 -translate-x-1/2 z-10">
+        <div class="relative">
+          <div class="size-35 rounded-full bg-neutral-300 dark:bg-neutral-700 border-3 border-neutral shadow-xl flex items-center justify-center overflow-hidden relative">
+            <img
+              src={links.perfil}
+              alt="Foto de Perfil"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-7 space-y-4 text-center">
+      <div class="flex items-center justify-center gap-4">
+        <span class="text-2xl font-black tracking-tighter">Mr. Yerri</span>
+      </div>
+      <div class="space-y-6 text-center px-6">
+        <div class="max-w-md mx-auto p-3 rounded-[10px] bg-neutral-200 dark:bg-neutral-800 border border-neutral shadow-sm transition-all hover:scale-[1.02]">
+          <h3 class="text-1xl tracking-tight mb-2 italic">"Jesus is King👑"</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

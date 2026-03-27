@@ -1,0 +1,217 @@
+---
+// src/layouts/Layout.astro
+import "../styles/global.css";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="El blog oficial de Mr. Yerri" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <script is:inline>
+      const getTheme = () => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      };
+
+      const theme = getTheme();
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+  </head>
+
+  <body
+    class="bg-white dark:bg-black text-black dark:text-white font-sans transition-colors duration-500 selection:bg-neutral-200 dark:selection:bg-neutral-800"
+  >
+    <header
+      class="border-b border-b-neutral-500 dark:border-neutral-500 py-5 px-6 sticky top-0 bg-white/60 dark:bg-black/60 backdrop-blur-md z-50"
+    >
+      <div class="w-full px-6 flex justify-between items-center">
+        <a
+          href="/perfil"
+          class="flex items-center gap-2 text-m font-black tracking-tighter hover:opacity-80 transition-opacity"
+        >
+          <div
+            class="h-7 w-7 rounded-full border border-neutral-400 overflow-hidden shrink-0"
+          >
+            <img
+              src="https://res.cloudinary.com/dvdvy3emr/image/upload/v1774646718/perfil_ycdtd4.webp"
+              alt="Profile"
+              class="h-full w-full object-cover"
+            />
+          </div>
+
+          <span>Mr. Yerri</span>
+        </a>
+
+        <nav class="flex items-center gap-6">
+          <a
+            href="/"
+            class="text-sm font-bold text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
+          >
+            Inicio
+          </a>
+          <a
+            href="/faq"
+            class="text-sm font-bold text-neutral-700 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors"
+          >
+            FAQ
+          </a>
+
+          <ThemeToggle />
+        </nav>
+      </div>
+    </header>
+
+    <main class="w-full px-6 py-4 relative z-10 min-h-screen">
+      <slot />
+    </main>
+
+    <footer
+      class="border-t border-neutral-500 dark:border-neutral-500 py-6 px-6 mt-20 bg-neutral-50 dark:bg-black/50 relative z-10"
+    >
+      <div
+        class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8"
+      >
+        <div class="text-center md:text-left">
+          <p class="font-bold text-m mb-1">Mr. Yerri</p>
+          <p class="text-neutral-500 dark:text-neutral-500 text-sm">
+            Copyright © 2026. Derechos reservados.
+          </p>
+        </div>
+
+        <div class="flex gap-6 text-neutral-600 dark:text-neutral-400">
+          <a
+            href="https://www.facebook.com/yerri.perezdiaz.9/?locale=es_LA"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-[#1877F2] transition-colors"
+            aria-label="Facebook"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+              ></path></svg
+            >
+          </a>
+
+          <a
+            href="https://www.instagram.com/stories/yerx_ito/?hl=es"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-[#E4405F] transition-colors"
+            aria-label="Instagram"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><rect width="20" height="20" x="2" y="2" rx="5" ry="5"
+              ></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+              ></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg
+            >
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@yerx_ito"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-black dark:hover:text-white transition-colors"
+            aria-label="TikTok"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg
+            >
+          </a>
+        </div>
+      </div>
+    </footer>
+    <button
+      onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+      class="fixed bottom-8 right-8 flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 rounded-md shadow-lg hover:-translate-y-1 transition-all z-50 text-sm font-bold group"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-4 h-4 group-hover:-translate-y-1 transition-transform"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 15l7-7 7 7"></path>
+      </svg>
+      Volver arriba
+    </button>
+  </body>
+</html>
+
+<style is:global>
+  /* Suavizamos el scroll para todo el sitio */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Ocultar barra de scroll pero mantener funcionalidad si prefieres un look ultra limpio */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+</style>
